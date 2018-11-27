@@ -32,13 +32,21 @@ if (this.state.remainder >= sushiObj.price){
 }
 }
 
+//after clicking the MoRE suShiS button, changes all the consumed to non consumed so can be loaded again
+reloadSushis = () => {
+  let notYetReloadedSushis = JSON.stringify(this.state.sushis)
+  let reloadedSushis = JSON.parse(notYetReloadedSushis)
+  reloadedSushis.forEach(sushi => sushi.consumed = false)
+  console.log("reloaded: ", reloadedSushis)
+  this.setState({ sushis: reloadedSushis })
+} 
+
 //load the 4 random sushis into the state
 loadFourRandomSushis = () => {
   const shownSushis = this.getFourRandomSushis()
-  
- 
-  this.setState({ loadedSushis: shownSushis
-   
+  this.reloadSushis()
+  this.setState({ 
+    loadedSushis: shownSushis
    })
 
 }
