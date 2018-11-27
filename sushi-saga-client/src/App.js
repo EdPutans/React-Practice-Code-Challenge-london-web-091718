@@ -9,20 +9,38 @@ class App extends Component {
 state = {
   sushis: [],
   loadedSushis: [],
+  consumedSushis: [],
   remainder: 120
 }
 
 //Remove sushi from loaded 4
 addSushiToTable=(sushiObj)=>{
-  let newLoadedSushis = this.state.loadedSushis.filter(sushi => sushi != sushiObj)
-  this.setState({  loadedSushis: [ ...newLoadedSushis.slice() ]  })
-
+  // if sushi's status is consumed - do nothing
+if (sushiObj.consumed) return;
+// if the clicked sushi is one of the array ones, remove it from loaded sushis and set status to consumed
+if (this.state.remainder >= sushiObj.price){
+  let newLoadedSushis = this.state.loadedSushis.map(sushi => {
+    if (sushi === sushiObj) {sushi.consumed = true}
+    return sushi
+  })
+  // additionally change the remaining cash and update loaded
+  this.setState({ 
+    loadedSushis: [...newLoadedSushis],
+    consumedSushis: [...this.state.consumedSushis, sushiObj],
+    remainder: this.state.remainder - sushiObj.price 
+  })
+}
 }
 
 //load the 4 random sushis into the state
 loadFourRandomSushis = () => {
   const shownSushis = this.getFourRandomSushis()
-  this.setState({ loadedSushis: shownSushis })
+  
+ 
+  this.setState({ loadedSushis: shownSushis
+   
+   })
+
 }
 
 //Generate 4 random sushis from the long list and return them as an array of objects
@@ -59,8 +77,14 @@ getFourRandomSushis = ()=> {
   render() {
     return (
       <div className="app">
-        <SushiContainer loadedSushis={this.state.loadedSushis}/>
-        <Table remainder={this.state.remainder} />
+        <SushiContainer
+          loadedSushis={this.state.loadedSushis}
+          addSushiToTable={this.addSushiToTable}
+          loadFourRandomSushis={ this.loadFourRandomSushis}
+          />
+        <Table 
+        remainder={this.state.remainder}
+        consumedSushis={this.state.consumedSushis} />
       </div>
     );
   }
