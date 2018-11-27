@@ -11,7 +11,7 @@ class Sushi extends React.Component{
       >
 
         { 
-            !sushi.consumed && <img src={sushi.img_url} width="100%" />  
+            !sushi.consumed && <img key={sushi.id} src={sushi.img_url} width="100%" />  
         }
 
       </div>

@@ -82,17 +82,26 @@ getFourRandomSushis = ()=> {
   }
 
 
+increaseCash = amount =>{
+  let newAmount = parseInt(this.state.remainder) + parseInt(amount)
+  this.setState( {remainder: newAmount} )
+}
+
+
   render() {
     return (
       <div className="app">
+       
         <SushiContainer
-          loadedSushis={this.state.loadedSushis}
-          addSushiToTable={this.addSushiToTable}
-          loadFourRandomSushis={ this.loadFourRandomSushis}
+          loadedSushis={ this.state.loadedSushis }
+          addSushiToTable={ this.addSushiToTable }
+          loadFourRandomSushis={ this.loadFourRandomSushis }
+          increaseCash={ this.increaseCash }
           />
         <Table 
-        remainder={this.state.remainder}
-        consumedSushis={this.state.consumedSushis} />
+        remainder={ this.state.remainder }
+        consumedSushis={ this.state.consumedSushis } />
+        
       </div>
     );
   }

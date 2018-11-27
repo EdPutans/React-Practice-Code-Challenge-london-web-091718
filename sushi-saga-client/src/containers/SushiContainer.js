@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import MoreButton from '../components/MoreButton'
 import Sushi from '../components/Sushi'
-
+import SushiWallet from '../components/SushiWallet'
 
 const SushiContainer = (props) => {
   return (
@@ -15,6 +15,9 @@ const SushiContainer = (props) => {
             />)
         }
         <MoreButton loadFourRandomSushis={ props.loadFourRandomSushis} />
+        <SushiWallet 
+          increaseCash={ props.increaseCash }
+       />
       </div>
     </Fragment>
   )
